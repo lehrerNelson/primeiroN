@@ -12,6 +12,19 @@ int main(void)
 	}
 
 	nomeArquivo[strcspn(nomeArquivo, "\n")] = '\0';
+	size_t tamanhoNome = strlen(nomeArquivo);
+
+	if (tamanhoNome < 4 || strcmp(nomeArquivo + tamanhoNome - 4, ".txt") != 0)
+	{
+		if (tamanhoNome + 4 >= sizeof(nomeArquivo))
+		{
+			printf("Nome do arquivo muito longo.\n");
+			return 1;
+		}
+
+		strcat(nomeArquivo, ".txt");
+	}
+
 	FILE *arquivo = fopen(nomeArquivo, "w");
 
 	if (arquivo == NULL)
